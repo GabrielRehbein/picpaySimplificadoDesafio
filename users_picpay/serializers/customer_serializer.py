@@ -4,4 +4,4 @@ from users_picpay.models import Customer
 class CustomerSerializer(ModelSerializer):
     class Meta:
         model = Customer
-        fields = '__all__'
+        fields = ['fullname', 'cpf', 'email', 'password', 'created_at', 'updated_at']

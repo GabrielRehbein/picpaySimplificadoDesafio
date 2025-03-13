@@ -1,11 +1,11 @@
 from django.db import models
 from django.core.validators import RegexValidator
-
-
+from utils.validators import is_greater_than_zero
 class UserPicPay(models.Model):
     fullname = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
+    balance = models.DecimalField(decimal_places=2, max_digits=8, default=0, validators=[is_greater_than_zero])
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -23,8 +23,8 @@ class ShopKeeper(UserPicPay):
         max_length=14,
         unique=True,
         validators=[RegexValidator(
-            regex='^[0-9]{14}$',
-            message='CNPJ invalid. Use the format: 00000000000100'
+            regex='^[0-9]{8}0001[0-9]{2}$',
+            message='CNPJ invalid. Use the format: 99999999000100'
         )],
         help_text=help_text_message()
     )

@@ -4,5 +4,4 @@ from users_picpay.models import ShopKeeper
 class ShopKeeperSerializer(ModelSerializer):
     class Meta:
         model = ShopKeeper
-        fields = '__all__'
-
+        fields = ['fullname', 'cnpj', 'email', 'password', 'created_at', 'updated_at']
