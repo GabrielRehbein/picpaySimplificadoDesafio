@@ -1,8 +1,13 @@
-from rest_framework.views import View
-from django.http import HttpResponse
+from rest_framework import generics
+from ..models import Customer
+from ..serializers.customer_serializer import CustomerSerializer
 
 
-class CustomerView(View):
+class CustomerListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
 
-    def get(self, request):
-        return HttpResponse('ok')
+
+class CustomerRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Customer.objects.all()
+    serializer_class = CustomerSerializer
