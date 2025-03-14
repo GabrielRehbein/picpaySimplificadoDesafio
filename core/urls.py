@@ -5,4 +5,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/users/', include('users_picpay.urls')),
+    path('api/', include('transfers.urls')),
 ]

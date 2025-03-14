@@ -3,7 +3,7 @@ from utils.validators import is_greater_than_zero
 from users_picpay.models import Customer, ShopKeeper
 
 
-class Tranfer(models.Model):
+class Transfer(models.Model):
     value = models.DecimalField(
         decimal_places=2,
         max_digits=11,
