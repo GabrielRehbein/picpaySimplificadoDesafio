@@ -1,11 +1,16 @@
 from django.db import models
 from django.core.validators import RegexValidator
-from utils.validators import is_greater_than_zero
+from utils.validators import valid_if_value_is_positive
 class UserPicPay(models.Model):
     fullname = models.CharField(max_length=255)
     email = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
-    balance = models.DecimalField(decimal_places=2, max_digits=8, default=0, validators=[is_greater_than_zero])
+    balance = models.DecimalField(
+        decimal_places=2,
+        max_digits=11,
+        default=0,
+        validators=[valid_if_value_is_positive]
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Tranfer
 
-# Register your models here.
+
+admin.site.register(Tranfer)
