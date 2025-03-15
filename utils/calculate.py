@@ -1,7 +1,11 @@
-from users_picpay.models import Customer, ShopKeeper
+from users_picpay.models import PicPayUser
 from decimal import Decimal
 
 
-def calculate_balance(customer: Customer, shopkeeper: ShopKeeper, value: Decimal):
-    customer.balance -= value
-    shopkeeper.balance += value
+def calculate_balance(payer: PicPayUser, payee: PicPayUser, value: Decimal):
+    payer.balance -= value
+    payee.balance += value
+
+def reverse_transfer(payer: PicPayUser, payee: PicPayUser, value: Decimal):
+    payer.balance += value
+    payee.balance -= value

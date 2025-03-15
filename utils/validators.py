@@ -8,7 +8,7 @@ def is_greater_than_zero(value: float):
             params={"value": value},
         )
 
-def valid_if_value_is_positive(value: float):
+def validate_if_value_is_positive(value: float):
     if value < 0:
         raise ValidationError(
             ("%(value)s is not positive value"),

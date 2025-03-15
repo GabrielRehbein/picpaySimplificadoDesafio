@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import ShopKeeper, Customer
+from .models import PicPayUser
 
 
-admin.site.register(ShopKeeper)
-admin.site.register(Customer)
+admin.site.register(PicPayUser)

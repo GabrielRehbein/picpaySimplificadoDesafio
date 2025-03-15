@@ -1,0 +1,6 @@
+services:
+  picpay:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
