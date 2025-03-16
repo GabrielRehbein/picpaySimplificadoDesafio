@@ -80,7 +80,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'picpay_db',
+        'USER': 'postgres',
+        'PASSWORD':  'postgres',
+        'HOST': 'picpay_db',
+        'PORT': '5432',
+    },
+    'dev': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
