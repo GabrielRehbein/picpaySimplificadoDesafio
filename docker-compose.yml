@@ -1,21 +1,29 @@
 services:
   picpay:
     build: .
+
     restart: always
+
     ports:
       - 8000:8000
+      
     depends_on:
       - picpay_db
+
   picpay_db:
+
     image: postgres:15
+
     ports:
       - 5433:5432
+
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=picpay_db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_HOST}
 
 volumes:
   postgres_data:
