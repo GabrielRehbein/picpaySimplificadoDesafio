@@ -5,6 +5,7 @@ class PicPayUserSerializer(ModelSerializer):
     class Meta:
         model = PicPayUser
         fields = [
+            'id',
             'fullname',
             'user_type',
             'document',
