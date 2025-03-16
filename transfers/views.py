@@ -11,6 +11,8 @@ from django.shortcuts import get_object_or_404
 from services.transfer_auth import TransferAuthService
 from utils.messages import Message
 from rest_framework.generics import RetrieveAPIView
+from utils import check
+
 
 class TransferListCreateAPIView(APIView):
     
@@ -34,13 +36,35 @@ class TransferListCreateAPIView(APIView):
                     },
                     status=status.HTTP_401_UNAUTHORIZED
                     )
+            
             data = serializer.validated_data 
 
             value = Decimal(data.get('value'))
 
             payer: PicPayUser = data.get('payer')
-            
+        
+            print(payer)
+            if not payer:
+                return Response(
+                    {
+                        'message': 'Pagador não encontrado'
+                    },
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+
+            balance_is_enough = check.check_balance(payer=payer, value=value)
+            if not balance_is_enough:
+                return Response(
+                    {
+                        'message': 'Saldo insuficiente.',
+                        'value': value,
+                        'balance': payer.balance
+                    },
+                    status=status.HTTP_400_BAD_REQUEST
+                )
             payee: PicPayUser = data.get('payee')
+            
 
             calculate_balance(payer=payer, payee=payee, value=value)
 
@@ -52,11 +76,12 @@ class TransferListCreateAPIView(APIView):
                 serializer.data,
                 status=status.HTTP_201_CREATED
             )
+        
         return Response(
-            {'message': 'Dados incorretos'},
+            {'message': serializer.errors},
             status=status.HTTP_400_BAD_REQUEST
-            )
+        )
 
-class TransferAPIView(RetrieveAPIView):
+class TransferDetailAPIView(RetrieveAPIView):
     queryset = Transfer.objects.all()
     serializer_class = TransferSerializer

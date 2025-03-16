@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
+USE_DOCKER = config('USE_DOCKER').lower() == 'true'
 DATABASES = {
     'default':{
         'ENGINE': 'django.db.backends.postgresql',
@@ -87,8 +87,7 @@ DATABASES = {
         'PASSWORD':  config('POSTGRES_PASSWORD'),
         'HOST': config('POSTGRES_HOST'),
         'PORT': '5432',
-    },
-    'dev': {
+    } if USE_DOCKER else {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }

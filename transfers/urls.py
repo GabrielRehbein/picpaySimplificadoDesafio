@@ -1,4 +1,4 @@
-from .views import TransferListCreateAPIView, TransferAPIView
+from .views import TransferListCreateAPIView, TransferDetailAPIView
 from django.urls import path
 
 
@@ -10,7 +10,7 @@ urlpatterns = [
     ),
     path(
         '<int:pk>',
-        TransferAPIView.as_view(),
+        TransferDetailAPIView.as_view(),
         name='detail_transfer'
     ),
 ]
